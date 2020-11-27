@@ -1,4 +1,4 @@
-package com.ac03.ACmovies.data
+package com.ac03.accovid.data
 
 import org.junit.Test
 

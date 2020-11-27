@@ -1,4 +1,4 @@
-package com.ac03.ACmovies.data
+package com.ac03.accovid
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.ac03.ACmovies.data.test", appContext.packageName)
+        assertEquals("com.ac03.accovid", appContext.packageName)
     }
 }
