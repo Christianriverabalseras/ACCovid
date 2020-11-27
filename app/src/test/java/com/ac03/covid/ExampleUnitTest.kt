@@ -1,4 +1,4 @@
-package com.ac03.accovid
+package com.ac03.covid
 
 import org.junit.Test
 
