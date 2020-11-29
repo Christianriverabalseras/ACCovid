@@ -1,4 +1,4 @@
-package com.ac03.ACmovies
+package com.ac03.covid
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
