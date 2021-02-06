@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ACcovid</string>
+    <string name="pais">País</string>
 </resources>

@@ -10,24 +10,4 @@ data class SummaryData(
     val date: String,
     @SerializedName("Global")
     val global: Global
-) {
-    data class Country(
-        @SerializedName("Country")
-        val country: String,
-        @SerializedName("TotalConfirmed")
-        val totalConfirmed: Int,
-        @SerializedName("TotalDeaths")
-        val totalDeaths: Int,
-        @SerializedName("TotalRecovered")
-        val totalRecovered: Int
-    )
-
-    data class Global(
-        @SerializedName("TotalConfirmed")
-        val totalConfirmed: Int,
-        @SerializedName("TotalDeaths")
-        val totalDeaths: Int,
-        @SerializedName("TotalRecovered")
-        val totalRecovered: Int
-    )
-}
+)
