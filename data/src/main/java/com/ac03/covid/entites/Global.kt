@@ -1,10 +1,18 @@
 package com.ac03.covid.entites
 
+import com.google.gson.annotations.SerializedName
+
 data class Global(
-    val NewConfirmed: Int,
-    val NewDeaths: Int,
-    val NewRecovered: Int,
-    val TotalConfirmed: Int,
-    val TotalDeaths: Int,
-    val TotalRecovered: Int
+    @SerializedName("NewConfirmed")
+    val newConfirmed: Int,
+    @SerializedName("NewDeaths")
+    val newDeaths: Int,
+    @SerializedName("NewRecovered")
+    val newRecovered: Int,
+    @SerializedName("TotalConfirmed")
+    val totalConfirmed: Int,
+    @SerializedName("TotalDeaths")
+    val totalDeaths: Int,
+    @SerializedName("TotalRecovered")
+    val totalRecovered: Int
 )

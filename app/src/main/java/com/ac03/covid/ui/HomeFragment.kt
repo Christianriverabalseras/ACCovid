@@ -25,8 +25,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,25 +37,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private suspend fun getCountries() {
-        val api = CovidApiFactory.service.getCountries()
-
-        val countries: ArrayList<String> = arrayListOf<String>()
-        for(country in api) {
-            countries.add(country.Country)
-        }
-
-        countries.sort()
-
-        val adapter = ArrayAdapter(requireContext(), R.layout.list_item_sp_menu, countries)
+        val countries = CovidApiFactory.service.getCountries()
+        val countriesNames: ArrayList<String> = arrayListOf()
+        countries.forEach { countryItem -> countriesNames.add(countryItem.country) }
+        val adapter = ArrayAdapter(requireContext(), R.layout.list_item_sp_menu, countriesNames.sorted())
         (binding.spMenu.editText as? AutoCompleteTextView)?.setAdapter(adapter)
-
     }
 
     private suspend fun globalData() {
-        val api = CovidApiFactory.service.getSummary()
-        binding.globalConfirmed.text = "Total confirmados: ${ api.global.TotalConfirmed }"
-        binding.globalDeath.text = "Total muertes: ${ api.global.TotalDeaths }"
-        binding.globalRecovered.text = "Total recuperados: ${ api.global.TotalRecovered }"
+        val summary = CovidApiFactory.service.getSummary()
+        binding.globalConfirmed.text = "Total confirmados: ${ summary.global.totalConfirmed }"
+        binding.globalDeath.text = "Total muertes: ${ summary.global.totalDeaths }"
+        binding.globalRecovered.text = "Total recuperados: ${ summary.global.totalRecovered }"
     }
 
     override fun onDestroyView() {
