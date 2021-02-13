@@ -1,4 +1,4 @@
-package com.ac03.covid.entites
+package com.ac03.covid.data.server
 
 
 import com.google.gson.annotations.SerializedName

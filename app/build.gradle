@@ -35,11 +35,22 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
 
     // Navigation Component dependencies
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Retrofit and OkHttpLoggingInterceptor dependencies
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
+    // Flipper
+    debugImplementation "com.facebook.flipper:flipper:$fb_fipper_version"
+    debugImplementation "com.facebook.soloader:soloader:$fb_soloader_version"
+    debugImplementation "com.facebook.flipper:flipper-network-plugin:$fb_fipper_version"
+    releaseImplementation "com.facebook.flipper:flipper-noop:$fb_fipper_version"
 
     implementation project(':data')
 }
