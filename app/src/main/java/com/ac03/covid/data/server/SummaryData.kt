@@ -1,6 +1,7 @@
-package com.ac03.covid.entites
+package com.ac03.covid.data.server
 
-
+import com.ac03.covid.entites.Country
+import com.ac03.covid.entites.Global
 import com.google.gson.annotations.SerializedName
 
 data class SummaryData(

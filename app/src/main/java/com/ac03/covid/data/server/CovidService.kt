@@ -1,13 +1,11 @@
-package com.ac03.covid.api
+package com.ac03.covid.data.server
 
 import com.ac03.covid.entites.Countries
-import com.ac03.covid.entites.SummaryData
 import retrofit2.http.GET
 
-interface CovidApiService {
-
+interface CovidService {
     @GET("/summary")
-    suspend fun getSummary() : SummaryData
+    suspend fun getSummary(): SummaryData
 
     @GET("/countries")
     suspend fun getCountries(): Countries
