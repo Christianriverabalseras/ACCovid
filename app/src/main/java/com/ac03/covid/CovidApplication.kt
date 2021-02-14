@@ -12,8 +12,8 @@ class CovidApplication : Application() {
     val flipperNetworkPlugin by lazy { NetworkFlipperPlugin() }
 
     companion object {
-        private var INSTANCE: CovidApplication? = null
-        fun get(): CovidApplication = INSTANCE!!
+        private lateinit var INSTANCE: CovidApplication
+        fun get(): CovidApplication = INSTANCE
     }
 
     override fun onCreate() {
