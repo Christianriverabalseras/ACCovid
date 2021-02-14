@@ -6,16 +6,18 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ac03.covid.R
-import kotlinx.android.synthetic.main.activity_main.*
+import com.ac03.covid.databinding.ActivityMainBinding
+import com.ac03.covid.util.viewBinding
 
 class MainActivity : AppCompatActivity() {
+    private val binding by viewBinding(ActivityMainBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 
-        bottom_nav.setupWithNavController(navHostFragment.findNavController())
+        binding.bottomNav.setupWithNavController(navHostFragment.findNavController())
     }
 }

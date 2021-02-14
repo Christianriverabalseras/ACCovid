@@ -8,6 +8,7 @@ buildscript {
         okhttp_version = '4.9.0'
         fb_fipper_version = '0.74.0'
         fb_soloader_version = '0.10.1'
+        lifecycle_version = '2.3.0'
     }
     repositories {
         google()
