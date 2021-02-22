@@ -15,6 +15,8 @@ import com.ac03.covid.util.viewBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.text.DecimalFormat
+import java.text.NumberFormat
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
@@ -22,6 +24,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private var summary: SummaryData? = null
     private var isFirstTime: Boolean = true
     private var selectedCountry: String = ""
+
+    private val nFormat = DecimalFormat("#,###,###")
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,9 +60,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val data = CovidServiceFactory.service.getSummary()
         this.summary = data
         getDataForCountrySelected()
-        binding.globalConfirmed.text = "Total confirmados: ${ data.global.totalConfirmed }"
-        binding.globalDeath.text = "Total muertes: ${ data.global.totalDeaths }"
-        binding.globalRecovered.text = "Total recuperados: ${ data.global.totalRecovered }"
+        binding.globalConfirmed.text = "Total confirmados: ${ changeFormat(nFormat.format(data.global.totalConfirmed)) }"
+        binding.globalDeath.text = "Total muertes: ${ changeFormat(nFormat.format(data.global.totalDeaths)) }"
+        binding.globalRecovered.text = "Total recuperados: ${ changeFormat(nFormat.format(data.global.totalRecovered)) }"
     }
 
     private fun getDataForCountrySelected() {
@@ -67,21 +71,26 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             for (country in countries!!) {
                 if(country.country == "Spain") {
                     binding.tvCountryNameCard.setText("ESPAÑA")
-                    binding.tvConfirmedCases.setText(country.totalConfirmed.toString())
-                    binding.tvDeathCases.setText(country.totalDeaths.toString())
-                    binding.tvRecoveredCases.setText(country.totalRecovered.toString())
+                    binding.tvConfirmedCases.setText(changeFormat(nFormat.format(country.totalConfirmed).toString()))
+                    binding.tvDeathCases.setText(changeFormat(nFormat.format(country.totalDeaths).toString()))
+                    binding.tvRecoveredCases.setText(changeFormat(nFormat.format(country.totalRecovered).toString()))
                 }
             }
         } else {
             for (country in countries!!) {
                 if(country.country == selectedCountry) {
                     binding.tvCountryNameCard.setText(selectedCountry)
-                    binding.tvConfirmedCases.setText(country.totalConfirmed.toString())
-                    binding.tvDeathCases.setText(country.totalDeaths.toString())
-                    binding.tvRecoveredCases.setText(country.totalRecovered.toString())
+                    binding.tvConfirmedCases.setText(changeFormat(nFormat.format(country.totalConfirmed).toString()))
+                    binding.tvDeathCases.setText(changeFormat(nFormat.format(country.totalDeaths).toString()))
+                    binding.tvRecoveredCases.setText(changeFormat(nFormat.format(country.totalRecovered).toString()))
                 }
             }
         }
 
     }
+
+    private fun changeFormat(cadena: String?): String {
+        return cadena!!.replace(",", ".")
+    }
+
 }
