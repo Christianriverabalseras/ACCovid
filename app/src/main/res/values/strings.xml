@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">ACcovid</string>
-    <string name="pais">País</string>
+
+    <!-- HomeFragment  -->
+    <string name="country">País</string>
+    <string name="confirmedCases">Casos confirmados:</string>
+    <string name="numberDeaths">Número de muertes:</string>
+    <string name="recoveredCases">Casos recuperados:</string>
+    <string name="totalCountry">TOTAL PAISES:</string>
+    <string name="totalConfirmed">Total confirmados:</string>
+    <string name="totalDeaths">Total muertes:</string>
+    <string name="totalRecovered">Total recuperados:</string>
+    <string name="spainCountry">ESPAÑA</string>
+    <string name="statistics">Estadísticas</string>
+    <string name="settings">Ajustes</string>
+    <string name="home">Inicio</string>
+
 </resources>

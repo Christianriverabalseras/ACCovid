@@ -7,16 +7,16 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.ac03.covid.ui.HomeFragment"
-        android:label="Home"
+        android:label="@string/home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.ac03.covid.ui.SettingsFragment"
-        android:label="Settings"
+        android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/statisticsFragment"
         android:name="com.ac03.covid.ui.StatisticsFragment"
-        android:label="Statistics"
+        android:label="@string/statistics"
         tools:layout="@layout/fragment_statistics" />
 </navigation>

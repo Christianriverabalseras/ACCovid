@@ -3,19 +3,19 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:title="Home"
+        android:title="@string/home"
         android:iconTint="@color/colorPrimary"
         android:icon="@drawable/ic_home" />
 
     <item
         android:id="@+id/statisticsFragment"
-        android:title="Statistics"
+        android:title="@string/statistics"
         android:iconTint="@color/colorPrimary"
         android:icon="@drawable/ic_trending_up" />
 
     <item
         android:id="@+id/settingsFragment"
-        android:title="Settings"
+        android:title="@string/settings"
         android:iconTint="@color/colorPrimary"
         android:icon="@drawable/ic_settings" />
 
