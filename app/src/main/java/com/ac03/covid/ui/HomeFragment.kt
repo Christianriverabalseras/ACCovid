@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.ac03.covid.R
-import com.ac03.covid.data.server.SummaryData
+import com.ac03.covid.model.server.SummaryData
 import com.ac03.covid.databinding.FragmentHomeBinding
 import com.ac03.covid.ui.HomeViewModel.UiModel
 import com.ac03.covid.ui.HomeViewModel.UiModel.*
