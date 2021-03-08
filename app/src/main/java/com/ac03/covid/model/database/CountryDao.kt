@@ -9,7 +9,7 @@ interface CountryDao {
     fun getAll(): List<Country>
 
     @Query("SELECT * FROM Country WHERE id = :id")
-    fun findById(id: Int): List<Country>
+    fun findById(id: Int): Country
 
     @Query("SELECT COUNT(id) FROM Country")
     fun countryCount(): Int

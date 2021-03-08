@@ -21,6 +21,7 @@ class HomeViewModel : ViewModel() {
         viewModelScope.launch {
             _model.value = UiModel.ContentCountries(CovidServiceFactory.service.getCountries())
             _model.value = UiModel.ContentGlobalData(CovidServiceFactory.service.getSummary())
+
         }
     }
 
