@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ac03.covid.data.server.CovidServiceFactory
 import com.ac03.covid.data.server.SummaryData
-import com.ac03.covid.entites.Countries
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
@@ -19,15 +18,17 @@ class HomeViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            _model.value = UiModel.ContentCountries(CovidServiceFactory.service.getCountries())
-            _model.value = UiModel.ContentGlobalData(CovidServiceFactory.service.getSummary())
+            try {
+                _model.value = UiModel.Content(CovidServiceFactory.service.getSummary())
+            } catch (e: Exception) {
+                _model.value = UiModel.Error(e.message.orEmpty())
+            }
         }
     }
 
     sealed class UiModel {
         object Loading : UiModel()
-        data class ContentCountries(val countries: Countries) : UiModel()
-        data class ContentGlobalData(val data: SummaryData) : UiModel()
-        object Error : UiModel()
+        data class Content(val data: SummaryData) : UiModel()
+        data class Error(val message: String) : UiModel()
     }
 }
