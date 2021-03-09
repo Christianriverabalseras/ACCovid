@@ -12,8 +12,8 @@ import com.facebook.soloader.SoLoader
 
 class CovidApplication : Application() {
 
-    /*lateinit var db: CovidDatabase
-        private set*/
+    lateinit var db: CovidDatabase
+        private set
 
     val flipperNetworkPlugin by lazy { NetworkFlipperPlugin() }
 
@@ -25,10 +25,10 @@ class CovidApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
-        /*db = Room.databaseBuilder(
+        db = Room.databaseBuilder(
             this,
             CovidDatabase::class.java, "covid-db"
-        ).build()*/
+        ).build()
         initializeFlipper()
     }
 
