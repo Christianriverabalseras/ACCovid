@@ -6,14 +6,17 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.ac03.covid.R
-import com.ac03.covid.model.server.SummaryData
 import com.ac03.covid.databinding.FragmentHomeBinding
+import com.ac03.covid.model.server.Country
+import com.ac03.covid.model.server.CovidRepository
+import com.ac03.covid.model.server.SummaryData
 import com.ac03.covid.ui.HomeViewModel.UiModel
 import com.ac03.covid.ui.HomeViewModel.UiModel.*
+import com.ac03.covid.util.changeFormat
 import com.ac03.covid.util.viewBinding
 import java.text.DecimalFormat
 
@@ -21,7 +24,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val binding by viewBinding(FragmentHomeBinding::bind)
 
-    private val viewModel by viewModels<HomeViewModel>()
+    private lateinit var viewModel: HomeViewModel
 
     private var summary: SummaryData? = null
     private var isFirstTime: Boolean = true
@@ -31,6 +34,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = getViewModel { HomeViewModel(CovidRepository(requireActivity().app)) }
         binding.spMenu.editText?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
@@ -50,59 +54,37 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun updateUi(model: UiModel) {
         when (model) {
             is Loading -> TODO()
-            is ContentCountries -> showCountries(model)
-            is ContentGlobalData -> showGlobalData(model)
-            is Error -> TODO()
+            is Content -> showGlobalData(model)
+            is Error -> Toast.makeText(context, model.message, Toast.LENGTH_LONG).show()
         }
     }
 
-    private fun showCountries(model: ContentCountries) {
-        val countriesNames: ArrayList<String> = arrayListOf()
-        model.countries.forEach { countryItem -> countriesNames.add(countryItem.country) }
+    private fun showGlobalData(model: Content) = with(binding) {
+        val countriesNames = mutableListOf<String>()
+        model.data.countries.forEach { countryItem -> countriesNames.add(countryItem.country) }
         val adapter =
             ArrayAdapter(requireContext(), R.layout.list_item_sp_menu, countriesNames.sorted())
-        (binding.spMenu.editText as? AutoCompleteTextView)?.setAdapter(adapter)
-    }
+        (spMenu.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
-    private fun showGlobalData(model: ContentGlobalData) {
         summary = model.data
         getDataForCountrySelected()
-        binding.globalConfirmed.text =
-            changeFormat(nFormat.format(model.data.global.totalConfirmed))
-        binding.globalDeath.text = changeFormat(nFormat.format(model.data.global.totalDeaths))
-        binding.globalRecovered.text =
-            changeFormat(nFormat.format(model.data.global.totalRecovered))
+        globalConfirmed.text = nFormat.format(model.data.global.totalConfirmed).changeFormat()
+        globalDeath.text = nFormat.format(model.data.global.totalDeaths).changeFormat()
+        globalRecovered.text = nFormat.format(model.data.global.totalRecovered).changeFormat()
     }
 
     private fun getDataForCountrySelected() {
-        val countries = this.summary?.countries
-        if (isFirstTime) {
-            for (country in countries!!) {
-                if (country.country == "Spain") {
-                    binding.tvCountryNameCard.setText(R.string.spainCountry)
-                    binding.tvConfirmedCases.text =
-                        (changeFormat(nFormat.format(country.totalConfirmed).toString()))
-                    binding.tvDeathCases.text =
-                        (changeFormat(nFormat.format(country.totalDeaths).toString()))
-                    binding.tvRecoveredCases.text =
-                        (changeFormat(nFormat.format(country.totalRecovered).toString()))
-                }
-            }
-        } else {
-            for (country in countries!!) {
-                if(country.country == selectedCountry) {
-                    binding.tvCountryNameCard.text = selectedCountry
-                    binding.tvConfirmedCases.text = (changeFormat(nFormat.format(country.totalConfirmed).toString()))
-                    binding.tvDeathCases.text = (changeFormat(nFormat.format(country.totalDeaths).toString()))
-                    binding.tvRecoveredCases.text = (changeFormat(nFormat.format(country.totalRecovered).toString()))
-                }
-            }
+        val countrySelected = when {
+            isFirstTime -> summary?.countries?.find { it.country == resources.getString(R.string.spain_country_name) }
+            else -> summary?.countries?.first { it.country == selectedCountry }
         }
-
+        countrySelected?.let { showCountryData(it) }
     }
 
-    private fun changeFormat(cadena: String?): String {
-        return cadena!!.replace(",", ".")
+    private fun showCountryData(country: Country) = with(binding) {
+        tvCountryNameCard.text = country.country
+        tvConfirmedCases.text = nFormat.format(country.totalConfirmed).changeFormat()
+        tvDeathCases.text = nFormat.format(country.totalDeaths).changeFormat()
+        tvRecoveredCases.text = nFormat.format(country.totalRecovered).changeFormat()
     }
-
 }

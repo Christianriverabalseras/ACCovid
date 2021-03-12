@@ -10,18 +10,16 @@ class CovidRepository(application: CovidApplication) {
 
     private val db = application.db
 
-    suspend fun findCountries(): List<DbCountry> = withContext(Dispatchers.IO) {
+    suspend fun findCountries(): SummaryData = withContext(Dispatchers.IO) {
+
+        val countries = CovidServiceFactory.service.getSummary()
 
         with(db.countryDao()) {
             if (countryCount() <= 0) {
-
-                val countries = CovidServiceFactory.service
-                    .getSummary()
-
                 insertCountries(countries.countries.map(ServerCountry::convertToDbCountry))
             }
 
-            getAll()
+            countries
         }
     }
 
