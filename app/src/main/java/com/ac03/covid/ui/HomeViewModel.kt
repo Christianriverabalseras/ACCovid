@@ -4,11 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ac03.covid.data.server.CovidServiceFactory
-import com.ac03.covid.data.server.SummaryData
+import com.ac03.covid.model.server.CovidRepository
+import com.ac03.covid.model.server.CovidServiceFactory
+import com.ac03.covid.model.server.SummaryData
 import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(private val covidRepository: CovidRepository) : ViewModel() {
 
     private val _model = MutableLiveData<UiModel>()
     val model: LiveData<UiModel>
@@ -19,7 +20,7 @@ class HomeViewModel : ViewModel() {
     init {
         viewModelScope.launch {
             try {
-                _model.value = UiModel.Content(CovidServiceFactory.service.getSummary())
+                _model.value = UiModel.Content(covidRepository.findCountries())
             } catch (e: Exception) {
                 _model.value = UiModel.Error(e.message.orEmpty())
             }

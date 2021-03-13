@@ -8,12 +8,12 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.ac03.covid.R
-import com.ac03.covid.data.server.SummaryData
 import com.ac03.covid.databinding.FragmentHomeBinding
-import com.ac03.covid.entites.Country
+import com.ac03.covid.model.server.Country
+import com.ac03.covid.model.server.CovidRepository
+import com.ac03.covid.model.server.SummaryData
 import com.ac03.covid.ui.HomeViewModel.UiModel
 import com.ac03.covid.ui.HomeViewModel.UiModel.*
 import com.ac03.covid.util.changeFormat
@@ -24,7 +24,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val binding by viewBinding(FragmentHomeBinding::bind)
 
-    private val viewModel by viewModels<HomeViewModel>()
+    private lateinit var viewModel: HomeViewModel
 
     private var summary: SummaryData? = null
     private var isFirstTime: Boolean = true
@@ -34,6 +34,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = getViewModel { HomeViewModel(CovidRepository(requireActivity().app)) }
         binding.spMenu.editText?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
