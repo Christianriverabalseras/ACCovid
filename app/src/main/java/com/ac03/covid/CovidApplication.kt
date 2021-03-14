@@ -1,6 +1,8 @@
 package com.ac03.covid
 
 import android.app.Application
+import androidx.room.Room
+import com.ac03.covid.model.database.CovidDatabase
 import com.facebook.flipper.android.AndroidFlipperClient
 import com.facebook.flipper.android.utils.FlipperUtils
 import com.facebook.flipper.plugins.inspector.DescriptorMapping
@@ -9,6 +11,10 @@ import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.facebook.soloader.SoLoader
 
 class CovidApplication : Application() {
+
+    lateinit var db: CovidDatabase
+        private set
+
     val flipperNetworkPlugin by lazy { NetworkFlipperPlugin() }
 
     companion object {
@@ -19,6 +25,10 @@ class CovidApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
+        db = Room.databaseBuilder(
+            this,
+            CovidDatabase::class.java, "covid-db"
+        ).build()
         initializeFlipper()
     }
 

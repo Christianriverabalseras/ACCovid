@@ -1,6 +1,5 @@
-package com.ac03.covid.data.server
+package com.ac03.covid.model.server
 
-import com.ac03.covid.entites.Country
 import com.ac03.covid.entites.Global
 import com.google.gson.annotations.SerializedName
 

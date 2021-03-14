@@ -13,4 +13,6 @@
     <string name="statistics">Statistics</string>
     <string name="settings">Settings</string>
     <string name="home">Home</string>
+    <string name="spain_country_name">Spain</string>
+    <string name="valor_inicial">0</string>
 </resources>
