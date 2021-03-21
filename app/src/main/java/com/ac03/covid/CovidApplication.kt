@@ -28,7 +28,7 @@ class CovidApplication : Application() {
         db = Room.databaseBuilder(
             this,
             CovidDatabase::class.java, "covid-db"
-        ).build()
+        ).fallbackToDestructiveMigration().build()
         initializeFlipper()
     }
 

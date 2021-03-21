@@ -9,6 +9,7 @@ import com.ac03.covid.data.server.SummaryData as ServerSummaryData
 import com.ac03.covid.data.server.Country as ServerCountry
 
 fun DomainSummaryData.toRoomSummaryData(): RoomSummaryData = RoomSummaryData(
+    id = 0,
     countries = countries.map(DomainCountry::toRoomCountry),
     date = date,
     totalConfirmed = global.totalConfirmed,

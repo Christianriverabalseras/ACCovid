@@ -5,10 +5,11 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class SummaryData(
-    val countries: List<Country>,
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
     val date: String,
     val totalConfirmed: Int,
     val totalDeaths: Int,
-    val totalRecovered: Int
+    val totalRecovered: Int,
+    val countries: List<Country>
 )
