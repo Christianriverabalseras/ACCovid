@@ -1,4 +1,4 @@
-package com.ac03.covid.ui
+package com.ac03.covid.ui.statistics
 
 import androidx.fragment.app.Fragment
 import com.ac03.covid.R

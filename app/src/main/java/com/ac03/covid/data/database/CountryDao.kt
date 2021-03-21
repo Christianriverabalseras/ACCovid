@@ -1,4 +1,4 @@
-package com.ac03.covid.model.database
+package com.ac03.covid.data.database
 
 import androidx.room.*
 
@@ -16,6 +16,12 @@ interface CountryDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertCountries(country: List<Country>)
+
+    @Query("SELECT * FROM SummaryData")
+    fun getSummaryData(): SummaryData
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertSummaryData(summaryData: SummaryData)
 
     @Update
     fun updateCountry(country: Country)

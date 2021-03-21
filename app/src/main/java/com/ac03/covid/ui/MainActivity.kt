@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ac03.covid.R
 import com.ac03.covid.databinding.ActivityMainBinding
-import com.ac03.covid.util.viewBinding
+import com.ac03.covid.ui.util.viewBinding
 
 class MainActivity : AppCompatActivity() {
     private val binding by viewBinding(ActivityMainBinding::inflate)

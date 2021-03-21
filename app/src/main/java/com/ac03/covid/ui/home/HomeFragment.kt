@@ -1,4 +1,4 @@
-package com.ac03.covid.ui
+package com.ac03.covid.ui.home
 
 import android.os.Bundle
 import android.text.Editable
@@ -9,15 +9,20 @@ import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.ac03.covid.CovidApplication
 import com.ac03.covid.R
+import com.ac03.covid.data.database.RoomDataSource
+import com.ac03.covid.data.repository.CovidRepository
+import com.ac03.covid.data.server.CovidRemoteDataSource
 import com.ac03.covid.databinding.FragmentHomeBinding
-import com.ac03.covid.model.server.Country
-import com.ac03.covid.model.server.CovidRepository
-import com.ac03.covid.model.server.SummaryData
-import com.ac03.covid.ui.HomeViewModel.UiModel
-import com.ac03.covid.ui.HomeViewModel.UiModel.*
-import com.ac03.covid.util.changeFormat
-import com.ac03.covid.util.viewBinding
+import com.ac03.covid.domain.Country
+import com.ac03.covid.domain.SummaryData
+import com.ac03.covid.ui.getViewModel
+import com.ac03.covid.ui.home.HomeViewModel.UiModel
+import com.ac03.covid.ui.home.HomeViewModel.UiModel.*
+import com.ac03.covid.usecases.GetSummaryData
+import com.ac03.covid.ui.util.changeFormat
+import com.ac03.covid.ui.util.viewBinding
 import java.text.DecimalFormat
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -25,6 +30,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val binding by viewBinding(FragmentHomeBinding::bind)
 
     private lateinit var viewModel: HomeViewModel
+
+    private val localDataSource = RoomDataSource(CovidApplication.get().db)
+    private val covidRemoteDataSource = CovidRemoteDataSource()
 
     private var summary: SummaryData? = null
     private var isFirstTime: Boolean = true
@@ -34,7 +42,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = getViewModel { HomeViewModel(CovidRepository(requireActivity().app)) }
+        viewModel = getViewModel { HomeViewModel(GetSummaryData(CovidRepository(localDataSource, covidRemoteDataSource))) }
         binding.spMenu.editText?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }

@@ -1,4 +1,4 @@
-package com.ac03.covid.model.server
+package com.ac03.covid.data.server
 
 import com.ac03.covid.CovidApplication
 import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor

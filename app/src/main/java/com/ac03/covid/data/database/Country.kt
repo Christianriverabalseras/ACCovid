@@ -1,4 +1,4 @@
-package com.ac03.covid.model.database
+package com.ac03.covid.data.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -9,10 +9,6 @@ data class Country(
     val country: String,
     val countryCode: String,
     val date: String,
-    val newConfirmed: Int,
-    val newDeaths: Int,
-    val newRecovered: Int,
-    val slug: String,
     val totalConfirmed: Int,
     val totalDeaths: Int,
     val totalRecovered: Int

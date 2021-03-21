@@ -1,4 +1,4 @@
-package com.ac03.covid.util
+package com.ac03.covid.ui.util
 
 fun String.changeFormat(): String {
     return this.replace(",", ".")
