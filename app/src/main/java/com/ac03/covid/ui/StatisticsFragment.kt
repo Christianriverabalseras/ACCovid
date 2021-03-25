@@ -10,6 +10,7 @@ import com.ac03.covid.model.server.CovidRepository
 import com.ac03.covid.util.viewBinding
 import androidx.lifecycle.Observer
 import com.ac03.covid.model.server.Country
+import com.ac03.covid.ui.StatisticsViewModel.UiModel.*
 import kotlinx.coroutines.delay
 
 class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
@@ -18,32 +19,39 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
     private lateinit var viewModel: StatisticsViewModel
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = getViewModel { StatisticsViewModel(CovidRepository(requireActivity().app)) }
-
-        viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        viewModel = getViewModel { StatisticsViewModel(CovidRepository(requireActivity().app)) }
+//
+//        viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
 //        val recycler = binding.countryRecyclerView
 //        val results = CovidRepository.findCountries
-
+//
 //        recycler.adapter = RankingAdapter(listOf())
+//    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel = getViewModel { StatisticsViewModel(CovidRepository(requireActivity().app)) }
+        viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
     }
     private fun updateUi(model: StatisticsViewModel.UiModel) {
         when (model) {
-            is StatisticsViewModel.UiModel.Loading -> TODO()
-            is StatisticsViewModel.UiModel.Content -> showRecycler(model)
-            is StatisticsViewModel.UiModel.Error -> Toast.makeText(context, model.message, Toast.LENGTH_LONG).show()
+            is Loading -> TODO()
+            is Content -> showRecycler(model)
+            is Error -> Toast.makeText(context, model.message, Toast.LENGTH_LONG).show()
         }
     }
 
-    private fun showRecycler(model: StatisticsViewModel.UiModel.Content) {
+    private fun showRecycler(model: Content) {
         val results = model.data.countries
 
         var newResults = listOf<Country>()
         for (country in results) {
             newResults = listOf(country) + newResults
-            binding.countryRecyclerView.adapter = RankingAdapter(newResults)
         }
+        binding.countryRecyclerView.adapter = RankingAdapter(newResults)
     }
 
 
