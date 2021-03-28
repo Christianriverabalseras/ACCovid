@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.ac03.covid.R
 import com.ac03.covid.databinding.FragmentStatisticsBinding
 import com.ac03.covid.model.server.CovidRepository
@@ -17,6 +18,9 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
 
     private val binding by viewBinding(FragmentStatisticsBinding::bind)
     private lateinit var viewModel: StatisticsViewModel
+//    private val viewModel by viewModels<StatisticsViewModel>()
+
+    private lateinit var adapter: RankingAdapter
 
 
 //    override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +55,9 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
         for (country in results) {
             newResults = listOf(country) + newResults
         }
-        binding.countryRecyclerView.adapter = RankingAdapter(newResults)
+//        binding.countryRecyclerView.adapter = RankingAdapter(newResults)
+//        binding.countryRecyclerView.adapter.submitList(newResults)
+        adapter.submitList(newResults)
     }
 
 

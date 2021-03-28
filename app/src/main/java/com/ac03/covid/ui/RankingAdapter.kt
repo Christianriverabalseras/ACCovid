@@ -3,16 +3,18 @@ package com.ac03.covid.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListAdapter
+import androidx.recyclerview.widget.ListAdapter
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ac03.covid.R
+import com.ac03.covid.databinding.ItemCountryBinding
 import com.ac03.covid.model.server.Country
 import com.ac03.covid.ui.RankingAdapter.ViewHolder
+import com.ac03.covid.util.viewBinding
 
-class RankingAdapter(private val countries: List<Country>) :
-    RecyclerView.Adapter<RankingAdapter.ViewHolder>() {
+class RankingAdapter(private val countries: (Country) -> Unit) :
+    ListAdapter<Country, RankingAdapter.ViewHolder>(DiffUtilCallback) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,42 +23,34 @@ class RankingAdapter(private val countries: List<Country>) :
             .inflate(R.layout.item_country, parent, false)
         return ViewHolder(view)
     }
+//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+//        ViewHolder(viewBinding(parent, ItemCountryBinding::inflate))
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val country = countries[position]
+        val country = getItem(position)
         holder.bind(country)
     }
 
-    override fun getItemCount(): Int {
-        return countries.size
-    }
-
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val binding = ItemCountryBinding.bind(view)
 
-        private val countryName = view.findViewById<TextView>(R.id.country_item)
-        private val confirmed = view.findViewById<TextView>(R.id.confirmed_item)
-        private val death = view.findViewById<TextView>(R.id.death_item)
-        private val recovered = view.findViewById<TextView>(R.id.recovered_item)
-
-        fun bind(country: Country) {
-            countryName.text = country.country
-            confirmed.text = country.totalConfirmed.toString()
-            death.text = country.totalDeaths.toString()
-            recovered.text = country.totalRecovered.toString()
+        fun bind(country: Country) = with(binding) {
+            this.countryItem.text = country.country
+            this.confirmedItem.text = country.totalConfirmed.toString()
+            this.deathItem.text = country.totalDeaths.toString()
+            this.recoveredItem.text = country.totalRecovered.toString()
         }
 
     }
 }
 
+private object DiffUtilCallback : DiffUtil.ItemCallback<Country>() {
+    override fun areItemsTheSame(oldItem: Country, newItem: Country): Boolean {
+        return oldItem.countryCode == newItem.countryCode
+    }
 
+    override fun areContentsTheSame(oldItem: Country, newItem: Country): Boolean {
+        return oldItem == newItem
+    }
 
-
-//class RankingAdapter(private val listener: (Country) -> Unit) :
-//    ListAdapter<Country, ViewHolder> {
-//
-//
-//
-//    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-//
-//    }
-//}
+}
