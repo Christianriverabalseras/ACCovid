@@ -14,6 +14,9 @@ interface CountryDao {
     @Query("SELECT COUNT(id) FROM Country")
     fun countryCount(): Int
 
+    @Query("SELECT * FROM Country")
+    fun getCountries(): List<Country>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertCountries(country: List<Country>)
 

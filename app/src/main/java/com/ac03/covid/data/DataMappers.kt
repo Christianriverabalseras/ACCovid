@@ -10,7 +10,6 @@ import com.ac03.covid.data.server.Country as ServerCountry
 
 fun DomainSummaryData.toRoomSummaryData(): RoomSummaryData = RoomSummaryData(
     id = 0,
-    countries = countries.map(DomainCountry::toRoomCountry),
     date = date,
     totalConfirmed = global.totalConfirmed,
     totalDeaths = global.totalDeaths,
@@ -27,14 +26,14 @@ fun DomainCountry.toRoomCountry(): RoomCountry = RoomCountry(
     totalRecovered = totalRecovered
 )
 
-fun RoomSummaryData.toDomainSummaryData(): DomainSummaryData = DomainSummaryData(
-    countries = countries.map(RoomCountry::toDomainCountry),
+fun RoomSummaryData.toDomainSummaryData(countries: List<DomainCountry>): DomainSummaryData = DomainSummaryData(
     date = date,
     global = Global(
         totalConfirmed = totalConfirmed,
         totalDeaths = totalDeaths,
         totalRecovered = totalRecovered
-    )
+    ),
+    countries = countries
 )
 
 fun RoomCountry.toDomainCountry(): DomainCountry = DomainCountry(

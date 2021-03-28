@@ -10,6 +10,5 @@ data class SummaryData(
     val date: String,
     val totalConfirmed: Int,
     val totalDeaths: Int,
-    val totalRecovered: Int,
-    val countries: List<Country>
+    val totalRecovered: Int
 )

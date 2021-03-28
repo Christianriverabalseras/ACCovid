@@ -9,6 +9,7 @@ class CovidRepository(private val localDataSource: LocalDataSource, private val 
         if (localDataSource.isEmpty()) {
             val summaryData = remoteDataSource.getSummaryData()
             localDataSource.saveSummaryData(summaryData)
+            localDataSource.saveCountries(summaryData.countries)
         }
         return localDataSource.getSummaryData()
     }
