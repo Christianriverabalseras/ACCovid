@@ -6,9 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ac03.covid.domain.SummaryData
 import com.ac03.covid.usecases.GetSummaryData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel(private val usecase: GetSummaryData) : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val usecase: GetSummaryData) : ViewModel() {
 
     private val _model = MutableLiveData<UiModel>()
     val model: LiveData<UiModel>

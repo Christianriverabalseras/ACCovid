@@ -8,11 +8,10 @@ import com.ac03.covid.data.toRoomSummaryData
 import com.ac03.covid.domain.Country
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 import com.ac03.covid.domain.SummaryData as DomainSummaryData
 
-class RoomDataSource(db: CovidDatabase) : LocalDataSource {
-
-    private val dao = db.countryDao()
+class RoomDataSource @Inject constructor(private val dao: CountryDao) : LocalDataSource {
 
     override suspend fun isEmpty(): Boolean =
         withContext(Dispatchers.IO) { dao.countryCount() >= 0 }

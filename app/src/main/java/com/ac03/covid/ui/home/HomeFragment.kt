@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.ac03.covid.CovidApplication
 import com.ac03.covid.R
@@ -23,16 +24,15 @@ import com.ac03.covid.ui.home.HomeViewModel.UiModel.*
 import com.ac03.covid.usecases.GetSummaryData
 import com.ac03.covid.ui.util.changeFormat
 import com.ac03.covid.ui.util.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 
+@AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val binding by viewBinding(FragmentHomeBinding::bind)
 
-    private lateinit var viewModel: HomeViewModel
-
-    private val localDataSource = RoomDataSource(CovidApplication.get().db)
-    private val covidRemoteDataSource = CovidRemoteDataSource()
+    private val viewModel by viewModels<HomeViewModel>()
 
     private var summary: SummaryData? = null
     private var isFirstTime: Boolean = true
@@ -42,7 +42,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = getViewModel { HomeViewModel(GetSummaryData(CovidRepository(localDataSource, covidRemoteDataSource))) }
         binding.spMenu.editText?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
