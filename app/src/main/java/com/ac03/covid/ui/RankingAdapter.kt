@@ -9,11 +9,8 @@ import com.ac03.covid.model.server.Country
 import com.ac03.covid.ui.RankingAdapter.ViewHolder
 import com.ac03.covid.util.viewBinding
 
-// TODO: aquí no necesitas pasarle la list de paises en el constructor, ya que eso lo hacemos con
-// el método submitList en el fragment
 class RankingAdapter : ListAdapter<Country, ViewHolder>(DiffUtilCallback) {
 
-    // TODO: esto estaba bien, lo único que te faltaba era al ViewHolder pasarle el binding, en lugar de la vista
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(viewBinding(parent, ItemCountryBinding::inflate))
 

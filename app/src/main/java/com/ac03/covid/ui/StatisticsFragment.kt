@@ -28,8 +28,6 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
     }
 
     private fun setupList() = with(binding.countryRecyclerView) {
-        // TODO: realmente, solo te faltaba el asignar el layoutManager al recycler view,
-        // y sobraba el pasarle una lista vacía al inicializar el adapter.
         adapter = rankingAdapter
         layoutManager = LinearLayoutManager(context)
     }
@@ -44,13 +42,6 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
 
     private fun showRecycler(model: Content) {
         val results = model.data.countries
-
-        // TODO: Cuál es la finalidad de esto?
-//        var newResults = listOf<Country>()
-//        for (country in results) {
-//            newResults = listOf(country) + newResults
-//        }
-
         rankingAdapter.submitList(results)
     }
 }
