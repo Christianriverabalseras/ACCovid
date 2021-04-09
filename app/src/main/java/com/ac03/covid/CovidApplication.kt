@@ -2,7 +2,7 @@ package com.ac03.covid
 
 import android.app.Application
 import androidx.room.Room
-import com.ac03.covid.model.database.CovidDatabase
+import com.ac03.covid.data.database.CovidDatabase
 import com.facebook.flipper.android.AndroidFlipperClient
 import com.facebook.flipper.android.utils.FlipperUtils
 import com.facebook.flipper.plugins.inspector.DescriptorMapping
@@ -28,7 +28,7 @@ class CovidApplication : Application() {
         db = Room.databaseBuilder(
             this,
             CovidDatabase::class.java, "covid-db"
-        ).build()
+        ).fallbackToDestructiveMigration().build()
         initializeFlipper()
     }
 
