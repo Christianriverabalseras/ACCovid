@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="10dp"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.StatisticsFragment">
+    tools:context=".ui.statistics.StatisticsFragment">
 
     <LinearLayout
         android:id="@+id/layout_init"
