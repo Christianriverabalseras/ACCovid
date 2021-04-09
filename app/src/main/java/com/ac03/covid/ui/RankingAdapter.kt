@@ -5,9 +5,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ac03.covid.databinding.ItemCountryBinding
-import com.ac03.covid.model.server.Country
+import com.ac03.covid.domain.Country
 import com.ac03.covid.ui.RankingAdapter.ViewHolder
-import com.ac03.covid.util.viewBinding
+import com.ac03.covid.ui.util.viewBinding
 
 class RankingAdapter : ListAdapter<Country, ViewHolder>(DiffUtilCallback) {
 

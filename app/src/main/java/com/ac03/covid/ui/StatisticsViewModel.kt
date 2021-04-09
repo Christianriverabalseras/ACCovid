@@ -4,9 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ac03.covid.model.server.CovidRepository
-import com.ac03.covid.model.server.CovidServiceFactory
-import com.ac03.covid.model.server.SummaryData
+import com.ac03.covid.data.repository.CovidRepository
+import com.ac03.covid.domain.SummaryData
 import kotlinx.coroutines.launch
 
 class StatisticsViewModel(private val covidRepository: CovidRepository) : ViewModel() {
@@ -20,6 +19,7 @@ class StatisticsViewModel(private val covidRepository: CovidRepository) : ViewMo
     init {
         viewModelScope.launch {
             try {
+                // TODO: implementar findCountries() en Covid Repository
                 _model.value = UiModel.Content(covidRepository.findCountries())
             } catch (e: Exception) {
                 _model.value = UiModel.Error(e.message.orEmpty())
