@@ -24,7 +24,6 @@ class StatisticsViewModel @Inject constructor(private val usecase: GetSummaryDat
     init {
         viewModelScope.launch {
             try {
-                // TODO: implementar findCountries() en Covid Repository
                 _model.value = UiModel.Content(usecase.invoke())
             } catch (e: Exception) {
                 _model.value = UiModel.Error(e.message.orEmpty())
