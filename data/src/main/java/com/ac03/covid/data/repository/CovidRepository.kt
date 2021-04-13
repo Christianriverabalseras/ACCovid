@@ -15,5 +15,12 @@ class CovidRepository(private val localDataSource: LocalDataSource, private val 
         return localDataSource.getSummaryData()
     }
 
+    suspend fun findCountries(): List<Country> {
+        if (localDataSource.isEmpty()) {
+            val countries = remoteDataSource.getCountries()
+            localDataSource.saveCountries(countries)
+        }
+        return localDataSource.getCountries()
+    }
     // TODO: findCountries() to be implemented
 }
