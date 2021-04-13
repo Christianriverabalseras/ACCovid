@@ -5,10 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ac03.covid.data.repository.CovidRepository
+import com.ac03.covid.domain.Country
 import com.ac03.covid.domain.SummaryData
+import com.ac03.covid.usecases.GetSummaryData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class StatisticsViewModel(private val covidRepository: CovidRepository) : ViewModel() {
+@HiltViewModel
+class StatisticsViewModel @Inject constructor(private val usecase: GetSummaryData) : ViewModel() {
 
     private val _model = MutableLiveData<UiModel>()
     val model: LiveData<UiModel>
@@ -20,7 +25,7 @@ class StatisticsViewModel(private val covidRepository: CovidRepository) : ViewMo
         viewModelScope.launch {
             try {
                 // TODO: implementar findCountries() en Covid Repository
-                _model.value = UiModel.Content(covidRepository.findCountries())
+                _model.value = UiModel.Content(usecase.invoke())
             } catch (e: Exception) {
                 _model.value = UiModel.Error(e.message.orEmpty())
             }

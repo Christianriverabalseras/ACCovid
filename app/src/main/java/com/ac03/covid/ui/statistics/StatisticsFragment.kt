@@ -13,7 +13,9 @@ import com.ac03.covid.ui.RankingAdapter
 import com.ac03.covid.ui.StatisticsViewModel
 import com.ac03.covid.ui.StatisticsViewModel.UiModel.*
 import com.ac03.covid.ui.util.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
 
     private val binding by viewBinding(FragmentStatisticsBinding::bind)
