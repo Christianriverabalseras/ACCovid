@@ -23,5 +23,4 @@ class CovidRepository(private val localDataSource: LocalDataSource, private val 
         }
         return localDataSource.getSummaryData()
     }
-    // TODO: findCountries() to be implemented
 }
