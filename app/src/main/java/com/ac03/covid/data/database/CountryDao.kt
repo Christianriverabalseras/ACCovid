@@ -14,6 +14,9 @@ interface CountryDao {
     @Query("SELECT COUNT(id) FROM Country")
     fun countryCount(): Int
 
+    @Query("SELECT COUNT(id) FROM SummaryData")
+    fun summaryDataCount(): Int
+
     @Query("SELECT * FROM Country")
     fun getCountries(): List<Country>
 

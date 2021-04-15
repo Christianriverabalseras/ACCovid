@@ -7,6 +7,7 @@ import com.ac03.covid.data.database.CovidDatabase
 import com.ac03.covid.data.database.RoomDataSource
 import com.ac03.covid.data.repository.CovidRepository
 import com.ac03.covid.data.server.CovidRemoteDataSource
+import com.ac03.covid.usecases.GetCountry
 import com.ac03.covid.usecases.GetSummaryData
 import dagger.Module
 import dagger.Provides
@@ -43,4 +44,7 @@ object AppModule {
 
     @Provides
     fun provideGetSummary(covidRepository: CovidRepository) = GetSummaryData(covidRepository)
+
+    @Provides
+    fun provideCountry(covidRepository: CovidRepository) = GetCountry(covidRepository)
 }

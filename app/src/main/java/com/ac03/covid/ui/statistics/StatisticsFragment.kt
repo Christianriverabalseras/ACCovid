@@ -44,7 +44,7 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
     }
 
     private fun showRecycler(model: Content) {
-        val results = model.data.countries
+        val results = model.data
         rankingAdapter.submitList(results)
     }
 }

@@ -4,7 +4,8 @@ import com.ac03.covid.domain.Country
 import com.ac03.covid.domain.SummaryData
 
 interface LocalDataSource {
-    suspend fun isEmpty() : Boolean
+    suspend fun isCountriesEmpty() : Boolean
+    suspend fun isSummaryDataEmpty() : Boolean
     suspend fun saveSummaryData(summaryData: SummaryData)
     suspend fun getSummaryData(): SummaryData
     suspend fun saveCountries(countries: List<Country>)
