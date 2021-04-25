@@ -21,6 +21,7 @@ import com.ac03.covid.domain.SummaryData
 import com.ac03.covid.ui.getViewModel
 import com.ac03.covid.ui.home.HomeViewModel.UiModel
 import com.ac03.covid.ui.home.HomeViewModel.UiModel.*
+import com.ac03.covid.ui.statistics.StatisticsViewModel
 import com.ac03.covid.usecases.GetSummaryData
 import com.ac03.covid.ui.util.changeFormat
 import com.ac03.covid.ui.util.viewBinding
@@ -59,8 +60,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun updateUi(model: UiModel) {
+
+        if (model is Loading) {
+            binding.progress.visibility = View.VISIBLE
+            binding.layoutConfirmedCases.visibility = View.GONE
+            binding.layoutDeathCases.visibility = View.GONE
+            binding.layoutRecoveredCases.visibility = View.GONE
+        } else {
+            binding.progress.visibility = View.GONE
+            binding.layoutConfirmedCases.visibility = View.VISIBLE
+            binding.layoutDeathCases.visibility = View.VISIBLE
+            binding.layoutRecoveredCases.visibility = View.VISIBLE
+        }
+
         when (model) {
-            is Loading -> TODO()
             is Content -> showGlobalData(model)
             is Error -> Toast.makeText(context, model.message, Toast.LENGTH_LONG).show()
         }

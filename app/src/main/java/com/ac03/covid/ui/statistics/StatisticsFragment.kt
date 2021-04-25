@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ac03.covid.R
 import com.ac03.covid.databinding.FragmentStatisticsBinding
 import com.ac03.covid.ui.RankingAdapter
-import com.ac03.covid.ui.StatisticsViewModel
-import com.ac03.covid.ui.StatisticsViewModel.UiModel.*
+import com.ac03.covid.ui.statistics.StatisticsViewModel.UiModel.*
 import com.ac03.covid.ui.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,8 +35,10 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
     }
 
     private fun updateUi(model: StatisticsViewModel.UiModel) {
+
+        binding.progress.visibility = if (model is Loading) View.VISIBLE else View.GONE
+
         when (model) {
-            is Loading -> TODO()
             is Content -> showRecycler(model)
             is Error -> Toast.makeText(context, model.message, Toast.LENGTH_LONG).show()
         }

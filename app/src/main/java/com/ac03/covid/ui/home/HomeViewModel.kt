@@ -22,6 +22,7 @@ class HomeViewModel @Inject constructor(private val usecase: GetSummaryData) : V
     init {
         viewModelScope.launch {
             try {
+                _model.value = UiModel.Loading
                 _model.value = UiModel.Content(usecase.invoke())
             } catch (e: Exception) {
                 _model.value = UiModel.Error(e.message.orEmpty())
