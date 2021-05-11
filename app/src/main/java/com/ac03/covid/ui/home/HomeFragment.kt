@@ -62,15 +62,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun updateUi(model: UiModel) {
 
         if (model is Loading) {
-            binding.progress.visibility = View.VISIBLE
-            binding.layoutConfirmedCases.visibility = View.GONE
-            binding.layoutDeathCases.visibility = View.GONE
-            binding.layoutRecoveredCases.visibility = View.GONE
+            showProgres()
         } else {
-            binding.progress.visibility = View.GONE
-            binding.layoutConfirmedCases.visibility = View.VISIBLE
-            binding.layoutDeathCases.visibility = View.VISIBLE
-            binding.layoutRecoveredCases.visibility = View.VISIBLE
+            hideProgress()
         }
 
         when (model) {
@@ -106,5 +100,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         tvConfirmedCases.text = nFormat.format(country.totalConfirmed).changeFormat()
         tvDeathCases.text = nFormat.format(country.totalDeaths).changeFormat()
         tvRecoveredCases.text = nFormat.format(country.totalRecovered).changeFormat()
+    }
+
+    private fun showProgres() = with(binding) {
+        progress.visibility = View.VISIBLE
+        layoutConfirmedCases.visibility = View.GONE
+        layoutDeathCases.visibility = View.GONE
+        layoutRecoveredCases.visibility = View.GONE
+    }
+
+    private fun hideProgress() = with(binding) {
+        progress.visibility = View.GONE
+        layoutConfirmedCases.visibility = View.VISIBLE
+        layoutDeathCases.visibility = View.VISIBLE
+        layoutRecoveredCases.visibility = View.VISIBLE
     }
 }
