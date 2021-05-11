@@ -62,7 +62,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun updateUi(model: UiModel) {
 
         if (model is Loading) {
-            showProgres()
+            showProgress()
         } else {
             hideProgress()
         }
@@ -102,7 +102,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         tvRecoveredCases.text = nFormat.format(country.totalRecovered).changeFormat()
     }
 
-    private fun showProgres() = with(binding) {
+    private fun showProgress() = with(binding) {
         progress.visibility = View.VISIBLE
         layoutConfirmedCases.visibility = View.GONE
         layoutDeathCases.visibility = View.GONE
