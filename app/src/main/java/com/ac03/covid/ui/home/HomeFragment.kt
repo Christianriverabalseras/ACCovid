@@ -21,6 +21,7 @@ import com.ac03.covid.domain.SummaryData
 import com.ac03.covid.ui.getViewModel
 import com.ac03.covid.ui.home.HomeViewModel.UiModel
 import com.ac03.covid.ui.home.HomeViewModel.UiModel.*
+import com.ac03.covid.ui.statistics.StatisticsViewModel
 import com.ac03.covid.usecases.GetSummaryData
 import com.ac03.covid.ui.util.changeFormat
 import com.ac03.covid.ui.util.viewBinding
@@ -59,8 +60,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun updateUi(model: UiModel) {
+
+        if (model is Loading) {
+            showProgres()
+        } else {
+            hideProgress()
+        }
+
         when (model) {
-            is Loading -> TODO()
             is Content -> showGlobalData(model)
             is Error -> Toast.makeText(context, model.message, Toast.LENGTH_LONG).show()
         }
@@ -93,5 +100,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         tvConfirmedCases.text = nFormat.format(country.totalConfirmed).changeFormat()
         tvDeathCases.text = nFormat.format(country.totalDeaths).changeFormat()
         tvRecoveredCases.text = nFormat.format(country.totalRecovered).changeFormat()
+    }
+
+    private fun showProgres() = with(binding) {
+        progress.visibility = View.VISIBLE
+        layoutConfirmedCases.visibility = View.GONE
+        layoutDeathCases.visibility = View.GONE
+        layoutRecoveredCases.visibility = View.GONE
+    }
+
+    private fun hideProgress() = with(binding) {
+        progress.visibility = View.GONE
+        layoutConfirmedCases.visibility = View.VISIBLE
+        layoutDeathCases.visibility = View.VISIBLE
+        layoutRecoveredCases.visibility = View.VISIBLE
     }
 }

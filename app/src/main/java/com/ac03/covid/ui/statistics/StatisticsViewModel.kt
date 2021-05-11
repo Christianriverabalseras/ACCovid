@@ -1,4 +1,4 @@
-package com.ac03.covid.ui
+package com.ac03.covid.ui.statistics
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,6 +22,7 @@ class StatisticsViewModel @Inject constructor(private val usecase: GetCountry) :
     init {
         viewModelScope.launch {
             try {
+                _model.value = UiModel.Loading
                 _model.value = UiModel.Content(usecase.invoke())
             } catch (e: Exception) {
                 _model.value = UiModel.Error(e.message.orEmpty())

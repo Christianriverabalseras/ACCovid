@@ -14,10 +14,10 @@ import com.ac03.covid.domain.SummaryData as DomainSummaryData
 class RoomDataSource @Inject constructor(private val dao: CountryDao) : LocalDataSource {
 
     override suspend fun isCountriesEmpty(): Boolean =
-        withContext(Dispatchers.IO) { dao.countryCount() >= 0 }
+        withContext(Dispatchers.IO) { dao.countryCount() == 0 }
 
     override suspend fun isSummaryDataEmpty(): Boolean =
-        withContext(Dispatchers.IO) { dao.summaryDataCount() >= 0 }
+        withContext(Dispatchers.IO) { dao.summaryDataCount() == 0 }
 
     override suspend fun saveSummaryData(summaryData: DomainSummaryData) {
         withContext(Dispatchers.IO) {
